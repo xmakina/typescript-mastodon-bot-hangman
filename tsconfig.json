@@ -1,0 +1,41 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "target": "es2016",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "sourceMap": true,
+        "types": [
+            // add node as an option
+            "node",
+            "reflect-metadata"
+        ],
+        "typeRoots": [
+            // add path to @types
+            "node_modules/@types"
+        ],
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        // Tells TypeScript to read JS files, as
+        // normally they are ignored as source files
+        "allowJs": true,
+        // Generate d.ts files
+        "declaration": true,
+        // Types should go into this directory.
+        // Removing this would place the .d.ts files
+        // next to the .js files
+        "outDir": "dist",
+        // go to js file when using IDE functions like
+        // "Go to Definition" in VSCode
+        "declarationMap": true
+    },
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+}
