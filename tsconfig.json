@@ -11,7 +11,8 @@
         "types": [
             // add node as an option
             "node",
-            "reflect-metadata"
+            "reflect-metadata",
+            "mocha"
         ],
         "typeRoots": [
             // add path to @types
@@ -36,6 +37,7 @@
     },
     "exclude": [
         "node_modules",
-        "dist"
+        "dist",
+        "tests"
     ]
 }

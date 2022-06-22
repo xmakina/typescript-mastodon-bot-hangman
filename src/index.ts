@@ -1,6 +1,8 @@
 import dotenv from 'dotenv'
-import Bot from 'ts_bot'
-import { HangmanFactory, HangmanMemoryStorage } from './Hangman'
+import Bot from 'typescript-mastodon-bot-framework'
+import { HangmanOutput, HangmanState } from 'typescript-functional-hangman/dist/Hangman'
+import { HangmanFactory } from './HangmanStorage'
+import { GetStorage, HangmanMongoStorage } from './MongoDB'
 
 dotenv.config()
 
@@ -9,15 +11,38 @@ const {
     ACCESS_TOKEN
 } = process.env
 
-var bot = new Bot()
-bot.listen(URL, ACCESS_TOKEN)
+GetStorage().then((hangmanStorage) => {
+    const hangmanFactory = new HangmanFactory(hangmanStorage)
 
-console.log('listening')
+    var bot = new Bot()
+    bot.listen(URL, ACCESS_TOKEN)
 
-const hangmanStorage = new HangmanMemoryStorage()
-const hangmanFactory = new HangmanFactory(hangmanStorage)
+    bot.OnMention(async (notification) => {
+        var game = await hangmanFactory.LoadGame(notification.account.acct)
+        game
+            .play(notification.status.content)
+            .report(sendReport(bot.SendReply(notification)))
+            .save(hangmanStorage.Save(notification.account.acct))
+    })
 
-bot.OnMention(async (data) => {
-    var game = await hangmanFactory.LoadGame(data.account.acct)
-    game.play(data.status.content).respond(bot.SendReply(data))
+    console.log('listening')
 })
+
+function sendReport(replyFunction: (message: string) => Promise<void>) {
+    return async (output: HangmanOutput) => {
+        const message = generateMessage(output)
+        await replyFunction(message);
+    }
+}
+
+function generateMessage(output: HangmanOutput): string {
+    if (output.won) {
+        return `You win! The word was ${output.progress}`
+    }
+
+    if (output.mistakes > 6) {
+        return `You lose! The word was ${output.target}`
+    }
+
+    return `${output.progress} (${output.mistakes} mistakes so far)`
+}
