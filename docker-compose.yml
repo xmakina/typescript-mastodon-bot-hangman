@@ -17,11 +17,8 @@ services:
       - MONGO_PASSWORD=$MONGO_PASSWORD
       - MONGO_HOSTNAME=mongo
       - MONGO_PORT=$MONGO_PORT
-      - CLIENT_KEY=$CLIENT_KEY
-      - CLIENT_SECRET=$CLIENT_SECRET
       - ACCESS_TOKEN=$ACCESS_TOKEN
       - API_URL=$API_URL
-      - LOG_MESSAGES=$LOG_MESSAGES
     volumes:
       - './log:/usr/app/log'
     depends_on:

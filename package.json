@@ -15,14 +15,16 @@
   "dependencies": {
     "@types/node": "^18.0.0",
     "dotenv": "^16.0.1",
+    "html-to-text": "^8.2.0",
     "mongodb": "^4.7.0",
     "reflect-metadata": "^0.1.13",
     "typescript": "^4.7.4",
-    "typescript-functional-hangman": "file:../typescript-functional-hangman/typescript-functional-hangman-0.0.5.tgz",
-    "typescript-mastodon-bot-framework": "file:../typescript-mastodon-bot-framework/typescript-mastodon-bot-framework-1.0.0.tgz"
+    "typescript-functional-hangman": "file:typescript-functional-hangman-0.1.0.tgz",
+    "typescript-mastodon-bot-framework": "file:typescript-mastodon-bot-framework-1.0.0.tgz"
   },
   "devDependencies": {
     "@types/chai": "^4.3.1",
+    "@types/html-to-text": "^8.1.0",
     "@types/mocha": "^9.1.1",
     "chai": "^4.3.6",
     "mocha": "^10.0.0",
